@@ -7,29 +7,56 @@ export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Find the About section
+    // Create intersection observer to detect when About section is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Hide CTA when About section comes into view
+            setIsVisible(false)
+          }
+        })
+      },
+      {
+        // Trigger when even 1px of the About section is visible
+        threshold: 0,
+        rootMargin: '0px 0px -100% 0px' // This makes it trigger at the top of the viewport
+      }
+    )
+
+    // Wait for DOM to be ready and observe the About section
+    const checkAndObserve = () => {
       const aboutSection = document.getElementById('about-section')
-      
       if (aboutSection) {
-        const aboutSectionTop = aboutSection.offsetTop
-        const scrollPosition = window.scrollY + window.innerHeight
+        observer.observe(aboutSection)
+      } else {
+        // Retry after a short delay if section not found
+        setTimeout(checkAndObserve, 100)
+      }
+    }
+
+    checkAndObserve()
+
+    // Also check scroll position to re-show CTA if user scrolls back up
+    const handleScroll = () => {
+      const aboutSection = document.getElementById('about-section')
+      if (aboutSection) {
+        const aboutTop = aboutSection.getBoundingClientRect().top
         
-        // Hide CTA when we reach the About section
-        if (scrollPosition >= aboutSectionTop) {
-          setIsVisible(false)
-        } else {
+        // Show CTA if About section is below viewport
+        if (aboutTop > window.innerHeight) {
           setIsVisible(true)
         }
       }
     }
 
-    // Initial check
-    handleScroll()
-
-    // Add scroll listener
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    // Cleanup
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
