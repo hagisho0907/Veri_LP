@@ -7,26 +7,19 @@ export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    const getScrollElement = () => document.scrollingElement || document.documentElement || document.body
+
     const updateVisibility = () => {
       const aboutSection = document.getElementById('about-section')
-      const limitedSaleSection = document.getElementById('limited-sale-section')
 
       if (!aboutSection) {
         setIsVisible(true)
         return
       }
 
-      if (limitedSaleSection) {
-        const limitedSaleTop = limitedSaleSection.offsetTop
-        const scrollBottom = window.scrollY + window.innerHeight
-        const shouldShow = scrollBottom < limitedSaleTop
-
-        setIsVisible((current) => (current === shouldShow ? current : shouldShow))
-        return
-      }
-
+      const scrollElement = getScrollElement() // body handles scrolling in this layout
+      const scrollTop = scrollElement.scrollTop
       const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight
-      const scrollTop = window.scrollY
       const shouldShow = scrollTop < aboutBottom
 
       setIsVisible((current) => (current === shouldShow ? current : shouldShow))
@@ -34,12 +27,15 @@ export default function StickyCTA() {
 
     updateVisibility()
 
-    window.addEventListener('scroll', updateVisibility, { passive: true })
-    window.addEventListener('resize', updateVisibility)
+    const handleScroll = () => updateVisibility()
+    const handleResize = () => updateVisibility()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('scroll', updateVisibility)
-      window.removeEventListener('resize', updateVisibility)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
