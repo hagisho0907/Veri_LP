@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100vw;
+    position: fixed;
+    height: 100%;
+    background-color: #f5f1eb;
+    overscroll-behavior: none;
+  }
+  
+  body {
+    @apply antialiased font-tt-interphases;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    touch-action: pan-y pinch-zoom;
+    background-color: #f5f1eb;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  #__next {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    contain: layout style;
+  }
+  
+  /* Prevent horizontal scrolling on carousel containers */
+  .carousel-container {
+    contain: layout style;
+    isolation: isolate;
+  }
+  
+  /* Prevent white gaps between sections during scroll */
+  section {
+    margin: 0 !important;
+    display: block;
+    position: relative;
+  }
+  
+  /* Ensure smooth section transitions */
+  main {
+    background-color: #f5f1eb;
+    min-height: 100vh;
+  }
+  
+  /* Custom font fallbacks */
+  .font-tt-interphases {
+    font-family: 'TT Interphases', 'Inter', var(--font-inter), system-ui, sans-serif;
+  }
+}
+
+/* Mobile optimizations */
+@layer utilities {
+  .mobile-hero-title {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-hero-title;
+  }
+  
+  .mobile-hero-subtitle {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-hero-subtitle;
+  }
+  
+  .mobile-section-title {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  .mobile-padding {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+  
+  .mobile-spacing {
+    @apply gap-6 md:gap-8 lg:gap-12;
+  }
+}
