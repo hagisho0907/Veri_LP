@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 export default function LimitedSale() {
   return (
-    <section className="bg-brand-red py-8 lg:py-12 text-center text-white">
+    <section id="limited-sale-section" className="bg-brand-red py-8 lg:py-12 text-center text-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
