@@ -14,26 +14,30 @@ import FaqSection from '@/components/FaqSection'
 import MessageSection from '@/components/MessageSection'
 import FinalCta from '@/components/FinalCta'
 import ContactSection from '@/components/ContactSection'
+import StickyCTA from '@/components/StickyCTA'
 
 export default function Home() {
   return (
-    <main>
-      <HeroNew />
-      <RedBanner />
-      <PlanningSection />
-      <TroublesSection />
-      <ThreeReasonsNew />
-      <CtaRed />
-      <GlimpseSection />
-      <ReadyToExplore />
-      <AboutSection />
-      <LimitedSale />
-      <ProductSummary />
-      <TestimonialsNew />
-      <FaqSection />
-      <MessageSection />
-      <FinalCta />
-      <ContactSection />
-    </main>
+    <>
+      <main>
+        <HeroNew />
+        <RedBanner />
+        <PlanningSection />
+        <TroublesSection />
+        <ThreeReasonsNew />
+        <CtaRed />
+        <GlimpseSection />
+        <ReadyToExplore />
+        <AboutSection />
+        <LimitedSale />
+        <ProductSummary />
+        <TestimonialsNew />
+        <FaqSection />
+        <MessageSection />
+        <FinalCta />
+        <ContactSection />
+      </main>
+      <StickyCTA />
+    </>
   )
 }

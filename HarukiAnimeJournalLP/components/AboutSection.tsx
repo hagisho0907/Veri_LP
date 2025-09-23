@@ -36,7 +36,7 @@ export default function AboutSection() {
   ]
 
   return (
-    <section className="py-16 lg:py-24 bg-brand-cream">
+    <section id="about-section" className="py-16 lg:py-24 bg-brand-cream">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Logo and Image */}
