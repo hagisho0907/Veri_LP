@@ -15,8 +15,10 @@ export default function StickyCTA() {
         return
       }
 
-      // Keep CTA visible until the About section has fully scrolled past
-      const shouldShow = aboutSection.getBoundingClientRect().bottom > 0
+      const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight
+      const scrollTop = window.scrollY
+
+      const shouldShow = scrollTop < aboutBottom
 
       setIsVisible((current) => (current === shouldShow ? current : shouldShow))
     }
