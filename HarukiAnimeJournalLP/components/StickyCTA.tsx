@@ -4,51 +4,47 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function StickyCTA() {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false) // Start with false to avoid SSR issues
 
   useEffect(() => {
-    let aboutSectionTop: number | null = null
-
-    const handleScroll = () => {
-      // Get About section position if not already cached
-      if (aboutSectionTop === null) {
-        const aboutSection = document.getElementById('about-section')
-        if (aboutSection) {
-          aboutSectionTop = aboutSection.offsetTop
-        } else {
-          return // Section not found yet, keep CTA visible
-        }
-      }
-
-      // Simple check: hide when scrolled past About section
-      const currentScroll = window.scrollY
+    const checkVisibility = () => {
+      const aboutSection = document.getElementById('about-section')
       
-      if (currentScroll >= aboutSectionTop - 200) {
-        setIsVisible(false)
-      } else {
+      if (!aboutSection) {
+        // If About section doesn't exist yet, show CTA
         setIsVisible(true)
+        return
+      }
+
+      // Get the About section's position
+      const rect = aboutSection.getBoundingClientRect()
+      const aboutSectionTop = rect.top + window.scrollY
+      
+      // Hide CTA if we've scrolled past the About section
+      // Show CTA with some margin (200px) before the section
+      if (window.scrollY < aboutSectionTop - 200) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
       }
     }
 
-    // Initial check after a delay to ensure DOM is loaded
-    setTimeout(handleScroll, 100)
+    // Initial check after mount
+    checkVisibility()
 
-    // Add scroll listener with throttling
-    let ticking = false
-    const scrollListener = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
-        })
-        ticking = true
-      }
+    // Check visibility on scroll
+    const handleScroll = () => {
+      checkVisibility()
     }
 
-    window.addEventListener('scroll', scrollListener)
+    window.addEventListener('scroll', handleScroll)
+    
+    // Also check on resize as layout might change
+    window.addEventListener('resize', checkVisibility)
 
     return () => {
-      window.removeEventListener('scroll', scrollListener)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', checkVisibility)
     }
   }, [])
 
