@@ -18,37 +18,33 @@ export default function StickyCTA() {
       const aboutSection = document.getElementById('about-section')
       
       if (!aboutSection) {
-        console.log('[StickyCTA] About section not found')
+        // If About section doesn't exist, show CTA
+        setIsVisible(true)
         return
       }
 
+      // Get current viewport position
       const scrollY = window.scrollY
+      const windowHeight = window.innerHeight
       const aboutTop = aboutSection.offsetTop
       
-      console.log('[StickyCTA] Scroll position:', scrollY, 'About section top:', aboutTop)
-      
-      // Show CTA only before reaching the About section
-      if (scrollY < aboutTop - 200) {
-        if (!isVisible) {
-          console.log('[StickyCTA] Showing CTA')
-          setIsVisible(true)
-        }
+      // Hide CTA when viewport bottom reaches the About section
+      // This ensures CTA is hidden before About section comes into view
+      if (scrollY + windowHeight >= aboutTop) {
+        setIsVisible(false)
       } else {
-        if (isVisible) {
-          console.log('[StickyCTA] Hiding CTA')
-          setIsVisible(false)
-        }
+        setIsVisible(true)
       }
     }
 
-    // Initial check
+    // Initial check after DOM is ready
     const timer = setTimeout(() => {
       checkVisibility()
     }, 100)
 
     // Check on scroll
     const handleScroll = () => {
-      checkVisibility()
+      requestAnimationFrame(checkVisibility)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -57,7 +53,7 @@ export default function StickyCTA() {
       clearTimeout(timer)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [mounted, isVisible])
+  }, [mounted])
 
   // Don't render anything until mounted (prevents hydration mismatch)
   if (!mounted) {
