@@ -5,7 +5,7 @@ import CardCarousel from './CardCarousel'
 
 export default function HeroNew() {
   return (
-    <section className="bg-brand-cream min-h-screen relative overflow-hidden" style={{marginTop: 0, paddingTop: 'env(safe-area-inset-top)'}}>
+    <section id="hero-section" className="bg-brand-cream min-h-screen relative overflow-hidden" style={{marginTop: 0, paddingTop: 'env(safe-area-inset-top)'}}>
       <div className="container mx-auto px-4 py-16 pb-8 lg:py-24 lg:pb-16 max-w-7xl overflow-x-hidden min-w-0">
         {/* Header Text */}
         <div className="text-center mb-8 md:mb-12">

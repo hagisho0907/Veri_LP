@@ -14,7 +14,7 @@ export default function GlimpseSection() {
   const allImages = [...images, ...images]
 
   return (
-    <section className="bg-brand-cream py-16 lg:py-24 overflow-hidden">
+    <section id="glimpse-section" className="bg-brand-cream py-16 lg:py-24 overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -10,7 +10,7 @@ export default function ThreeReasonsNew() {
       {/* Smooth gradient transition from red to cream */}
       <div className="h-16 bg-gradient-to-b from-brand-red to-brand-cream"></div>
       
-      <section className="bg-brand-cream pt-4 pb-12 md:pt-8 md:pb-16 lg:pt-12 lg:pb-24">
+      <section id="reasons-section" className="bg-brand-cream pt-4 pb-12 md:pt-8 md:pb-16 lg:pt-12 lg:pb-24">
         <div className="container mx-auto px-4 max-w-6xl text-center">
           {/* You'll be alright! */}
           <motion.p

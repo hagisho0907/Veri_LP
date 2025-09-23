@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function ReadyToExplore() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section id="ready-to-explore-section" className="relative py-24 lg:py-32 overflow-hidden">
       {/* Background Image Overlay */}
       <div className="absolute inset-0">
         <Image

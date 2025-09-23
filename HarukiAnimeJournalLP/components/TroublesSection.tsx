@@ -13,7 +13,7 @@ export default function TroublesSection() {
   ]
 
   return (
-    <section className="bg-brand-red py-12 md:py-16 lg:py-24 relative overflow-hidden" style={{marginBottom: 0}}>
+    <section id="troubles-section" className="bg-brand-red py-12 md:py-16 lg:py-24 relative overflow-hidden" style={{marginBottom: 0}}>
       <div className="container mx-auto px-4 max-w-6xl">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

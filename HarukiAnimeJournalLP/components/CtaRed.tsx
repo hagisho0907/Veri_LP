@@ -20,7 +20,7 @@ export default function CtaRed() {
         </svg>
       </div>
       
-      <section className="bg-brand-red py-16 text-center text-white">
+      <section id="cta-red-section" className="bg-brand-red py-16 text-center text-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

@@ -5,60 +5,73 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false)
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    if (!mounted) return
+    let ticking = false
 
     const checkVisibility = () => {
+      // List of sections where CTA should be visible
+      const sectionsToShow = [
+        'hero-section',
+        'red-banner-section', 
+        'planning-section',
+        'troubles-section',
+        'reasons-section',
+        'cta-red-section',
+        'glimpse-section',
+        'ready-to-explore-section'
+      ]
+
+      // Check if we're currently viewing any of the allowed sections
+      let shouldShow = false
+      
+      for (const sectionId of sectionsToShow) {
+        const section = document.getElementById(sectionId)
+        if (section) {
+          const rect = section.getBoundingClientRect()
+          // Check if section is in viewport
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            shouldShow = true
+            break
+          }
+        }
+      }
+
+      // Also check if we haven't reached the About section yet
       const aboutSection = document.getElementById('about-section')
-      
-      if (!aboutSection) {
-        // If About section doesn't exist, show CTA
-        setIsVisible(true)
-        return
+      if (aboutSection) {
+        const aboutRect = aboutSection.getBoundingClientRect()
+        // If About section is visible, hide CTA
+        if (aboutRect.top < window.innerHeight) {
+          shouldShow = false
+        }
       }
 
-      // Get current viewport position
-      const scrollY = window.scrollY
-      const windowHeight = window.innerHeight
-      const aboutTop = aboutSection.offsetTop
-      
-      // Hide CTA when viewport bottom reaches the About section
-      // This ensures CTA is hidden before About section comes into view
-      if (scrollY + windowHeight >= aboutTop) {
-        setIsVisible(false)
-      } else {
-        setIsVisible(true)
-      }
+      setIsVisible(shouldShow)
     }
 
-    // Initial check after DOM is ready
-    const timer = setTimeout(() => {
-      checkVisibility()
-    }, 100)
-
-    // Check on scroll
     const handleScroll = () => {
-      requestAnimationFrame(checkVisibility)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkVisibility()
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
+    // Initial check after DOM loads
+    setTimeout(checkVisibility, 100)
+
+    // Listen for scroll events
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', checkVisibility, { passive: true })
 
     return () => {
-      clearTimeout(timer)
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', checkVisibility)
     }
-  }, [mounted])
-
-  // Don't render anything until mounted (prevents hydration mismatch)
-  if (!mounted) {
-    return null
-  }
+  }, [])
 
   return (
     <AnimatePresence mode="wait">
