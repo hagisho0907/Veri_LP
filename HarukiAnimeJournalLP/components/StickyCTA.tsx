@@ -8,26 +8,27 @@ export default function StickyCTA() {
 
   useEffect(() => {
     const updateVisibility = () => {
-      // Simply hide CTA after scrolling 4000px (well before About section)
-      const scrollPosition = window.scrollY
-      
-      if (scrollPosition < 4000) {
+      const aboutSection = document.getElementById('about-section')
+
+      if (!aboutSection) {
         setIsVisible(true)
-      } else {
-        setIsVisible(false)
+        return
       }
+
+      // Keep CTA visible until the About section has fully scrolled past
+      const shouldShow = aboutSection.getBoundingClientRect().bottom > 0
+
+      setIsVisible((current) => (current === shouldShow ? current : shouldShow))
     }
 
-    // Initial check
     updateVisibility()
 
-    // Update on scroll
-    const handleScroll = () => updateVisibility()
-    
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('scroll', updateVisibility, { passive: true })
+    window.addEventListener('resize', updateVisibility)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', updateVisibility)
+      window.removeEventListener('resize', updateVisibility)
     }
   }, [])
 
