@@ -7,55 +7,48 @@ export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
-    // Create intersection observer to detect when About section is visible
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Hide CTA when About section comes into view
-            setIsVisible(false)
-          }
-        })
-      },
-      {
-        // Trigger when even 1px of the About section is visible
-        threshold: 0,
-        rootMargin: '0px 0px -100% 0px' // This makes it trigger at the top of the viewport
-      }
-    )
+    let aboutSectionTop: number | null = null
 
-    // Wait for DOM to be ready and observe the About section
-    const checkAndObserve = () => {
-      const aboutSection = document.getElementById('about-section')
-      if (aboutSection) {
-        observer.observe(aboutSection)
-      } else {
-        // Retry after a short delay if section not found
-        setTimeout(checkAndObserve, 100)
-      }
-    }
-
-    checkAndObserve()
-
-    // Also check scroll position to re-show CTA if user scrolls back up
     const handleScroll = () => {
-      const aboutSection = document.getElementById('about-section')
-      if (aboutSection) {
-        const aboutTop = aboutSection.getBoundingClientRect().top
-        
-        // Show CTA if About section is below viewport
-        if (aboutTop > window.innerHeight) {
-          setIsVisible(true)
+      // Get About section position if not already cached
+      if (aboutSectionTop === null) {
+        const aboutSection = document.getElementById('about-section')
+        if (aboutSection) {
+          aboutSectionTop = aboutSection.offsetTop
+        } else {
+          return // Section not found yet, keep CTA visible
         }
       }
+
+      // Simple check: hide when scrolled past About section
+      const currentScroll = window.scrollY
+      
+      if (currentScroll >= aboutSectionTop - 200) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    // Initial check after a delay to ensure DOM is loaded
+    setTimeout(handleScroll, 100)
 
-    // Cleanup
+    // Add scroll listener with throttling
+    let ticking = false
+    const scrollListener = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', scrollListener)
+
     return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', scrollListener)
     }
   }, [])
 
