@@ -10,8 +10,11 @@ export default function GlimpseSection() {
     { src: '/images/glimpse/9.PNG', alt: 'Guide Page 9' }
   ]
 
+  // Duplicate images for seamless loop
+  const allImages = [...images, ...images]
+
   return (
-    <section className="bg-brand-cream py-16 lg:py-24">
+    <section className="bg-brand-cream py-16 lg:py-24 overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,29 +30,77 @@ export default function GlimpseSection() {
             Discover what our COMPLETE GUIDES have to offer! Check out sample pages from our guidebooks.
           </p>
         </motion.div>
-
-        {/* Sample Pages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {images.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="relative w-full max-w-xs mx-auto md:max-w-none h-[600px] md:h-[400px] rounded-lg overflow-hidden shadow-lg"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              />
-            </motion.div>
-          ))}
-        </div>
       </div>
+
+      {/* Conveyor Belt Container */}
+      <div className="relative w-full overflow-hidden">
+        <div className="conveyor-wrapper">
+          <div className="conveyor-belt">
+            {allImages.map((image, index) => (
+              <div
+                key={index}
+                className="conveyor-item"
+              >
+                <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg bg-white">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover"
+                    sizes="400px"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Gradient Overlays */}
+        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-brand-cream to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-brand-cream to-transparent pointer-events-none z-10" />
+      </div>
+
+      <style jsx>{`
+        .conveyor-wrapper {
+          display: flex;
+          align-items: center;
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .conveyor-belt {
+          display: flex;
+          gap: 2rem;
+          animation: scroll 30s linear infinite;
+          width: fit-content;
+          padding: 0 2rem;
+        }
+
+        .conveyor-item {
+          flex-shrink: 0;
+          width: 300px;
+        }
+
+        @media (min-width: 768px) {
+          .conveyor-item {
+            width: 400px;
+          }
+        }
+
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .conveyor-belt:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   )
 }
