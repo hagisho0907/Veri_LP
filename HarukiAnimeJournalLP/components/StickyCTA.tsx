@@ -7,69 +7,27 @@ export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    let ticking = false
-
-    const checkVisibility = () => {
-      // List of sections where CTA should be visible
-      const sectionsToShow = [
-        'hero-section',
-        'red-banner-section', 
-        'planning-section',
-        'troubles-section',
-        'reasons-section',
-        'cta-red-section',
-        'glimpse-section',
-        'ready-to-explore-section'
-      ]
-
-      // Check if we're currently viewing any of the allowed sections
-      let shouldShow = false
+    const updateVisibility = () => {
+      // Simply hide CTA after scrolling 4000px (well before About section)
+      const scrollPosition = window.scrollY
       
-      for (const sectionId of sectionsToShow) {
-        const section = document.getElementById(sectionId)
-        if (section) {
-          const rect = section.getBoundingClientRect()
-          // Check if section is in viewport
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            shouldShow = true
-            break
-          }
-        }
-      }
-
-      // Also check if we haven't reached the About section yet
-      const aboutSection = document.getElementById('about-section')
-      if (aboutSection) {
-        const aboutRect = aboutSection.getBoundingClientRect()
-        // If About section is visible, hide CTA
-        if (aboutRect.top < window.innerHeight) {
-          shouldShow = false
-        }
-      }
-
-      setIsVisible(shouldShow)
-    }
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          checkVisibility()
-          ticking = false
-        })
-        ticking = true
+      if (scrollPosition < 4000) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
       }
     }
 
-    // Initial check after DOM loads
-    setTimeout(checkVisibility, 100)
+    // Initial check
+    updateVisibility()
 
-    // Listen for scroll events
+    // Update on scroll
+    const handleScroll = () => updateVisibility()
+    
     window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', checkVisibility, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', checkVisibility)
     }
   }, [])
 
