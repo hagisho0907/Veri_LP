@@ -8,15 +8,15 @@ export default function StickyCTA() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Find the Limited Sale section
-      const limitedSaleSection = document.getElementById('limited-sale-section')
+      // Find the About section
+      const aboutSection = document.getElementById('about-section')
       
-      if (limitedSaleSection) {
-        const limitedSaleSectionTop = limitedSaleSection.offsetTop
-        const scrollPosition = window.scrollY
+      if (aboutSection) {
+        const aboutSectionTop = aboutSection.offsetTop
+        const scrollPosition = window.scrollY + window.innerHeight
         
-        // Hide CTA when we reach the Limited Sale section
-        if (scrollPosition >= limitedSaleSectionTop - 100) {
+        // Hide CTA when we reach the About section
+        if (scrollPosition >= aboutSectionTop) {
           setIsVisible(false)
         } else {
           setIsVisible(true)
