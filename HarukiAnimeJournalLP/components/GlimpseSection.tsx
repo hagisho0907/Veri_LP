@@ -55,9 +55,6 @@ export default function GlimpseSection() {
           </div>
         </div>
         
-        {/* Gradient Overlays */}
-        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-brand-cream to-transparent pointer-events-none z-10" />
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-brand-cream to-transparent pointer-events-none z-10" />
       </div>
 
       <style jsx>{`
