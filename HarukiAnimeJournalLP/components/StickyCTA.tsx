@@ -9,16 +9,23 @@ export default function StickyCTA() {
   useEffect(() => {
     const updateVisibility = () => {
       const aboutSection = document.getElementById('about-section')
+      const limitedSaleSection = document.getElementById('limited-sale-section')
 
       if (!aboutSection) {
         setIsVisible(true)
         return
       }
 
-      const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight
-      const scrollTop = window.scrollY
+      if (limitedSaleSection) {
+        const limitedSaleTop = limitedSaleSection.getBoundingClientRect().top
+        const shouldShow = limitedSaleTop > window.innerHeight
 
-      const shouldShow = scrollTop < aboutBottom
+        setIsVisible((current) => (current === shouldShow ? current : shouldShow))
+        return
+      }
+
+      const aboutBottom = aboutSection.getBoundingClientRect().bottom
+      const shouldShow = aboutBottom > 0
 
       setIsVisible((current) => (current === shouldShow ? current : shouldShow))
     }
