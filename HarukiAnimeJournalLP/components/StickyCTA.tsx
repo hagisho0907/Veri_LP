@@ -4,54 +4,71 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function StickyCTA() {
-  const [isVisible, setIsVisible] = useState(false) // Start with false to avoid SSR issues
+  const [isVisible, setIsVisible] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     const checkVisibility = () => {
       const aboutSection = document.getElementById('about-section')
       
       if (!aboutSection) {
-        // If About section doesn't exist yet, show CTA
-        setIsVisible(true)
+        console.log('[StickyCTA] About section not found')
         return
       }
 
-      // Get the About section's position
-      const rect = aboutSection.getBoundingClientRect()
-      const aboutSectionTop = rect.top + window.scrollY
+      const scrollY = window.scrollY
+      const aboutTop = aboutSection.offsetTop
       
-      // Hide CTA if we've scrolled past the About section
-      // Show CTA with some margin (200px) before the section
-      if (window.scrollY < aboutSectionTop - 200) {
-        setIsVisible(true)
+      console.log('[StickyCTA] Scroll position:', scrollY, 'About section top:', aboutTop)
+      
+      // Show CTA only before reaching the About section
+      if (scrollY < aboutTop - 200) {
+        if (!isVisible) {
+          console.log('[StickyCTA] Showing CTA')
+          setIsVisible(true)
+        }
       } else {
-        setIsVisible(false)
+        if (isVisible) {
+          console.log('[StickyCTA] Hiding CTA')
+          setIsVisible(false)
+        }
       }
     }
 
-    // Initial check after mount
-    checkVisibility()
+    // Initial check
+    const timer = setTimeout(() => {
+      checkVisibility()
+    }, 100)
 
-    // Check visibility on scroll
+    // Check on scroll
     const handleScroll = () => {
       checkVisibility()
     }
 
-    window.addEventListener('scroll', handleScroll)
-    
-    // Also check on resize as layout might change
-    window.addEventListener('resize', checkVisibility)
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
+      clearTimeout(timer)
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', checkVisibility)
     }
-  }, [])
+  }, [mounted, isVisible])
+
+  // Don't render anything until mounted (prevents hydration mismatch)
+  if (!mounted) {
+    return null
+  }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isVisible && (
         <motion.div
+          key="sticky-cta"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
