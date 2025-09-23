@@ -17,15 +17,17 @@ export default function StickyCTA() {
       }
 
       if (limitedSaleSection) {
-        const limitedSaleTop = limitedSaleSection.getBoundingClientRect().top
-        const shouldShow = limitedSaleTop > window.innerHeight
+        const limitedSaleTop = limitedSaleSection.offsetTop
+        const scrollBottom = window.scrollY + window.innerHeight
+        const shouldShow = scrollBottom < limitedSaleTop
 
         setIsVisible((current) => (current === shouldShow ? current : shouldShow))
         return
       }
 
-      const aboutBottom = aboutSection.getBoundingClientRect().bottom
-      const shouldShow = aboutBottom > 0
+      const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight
+      const scrollTop = window.scrollY
+      const shouldShow = scrollTop < aboutBottom
 
       setIsVisible((current) => (current === shouldShow ? current : shouldShow))
     }
