@@ -42,22 +42,6 @@ export default function RootLayout({
     <html lang="en" className={`${leagueSpartan.variable} ${inter.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap"
-          rel="stylesheet"
-        />
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{
@@ -76,6 +60,7 @@ export default function RootLayout({
           }}
         />
         <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
           <img
             height="1"
             width="1"
