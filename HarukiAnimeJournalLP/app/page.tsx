@@ -13,6 +13,7 @@ import TestimonialsNew from '@/components/TestimonialsNew'
 import FaqSection from '@/components/FaqSection'
 import MessageSection from '@/components/MessageSection'
 import FinalCta from '@/components/FinalCta'
+import TestSection from '@/components/TestSection'
 import ContactSection from '@/components/ContactSection'
 import StickyCTA from '@/components/StickyCTA'
 
@@ -35,6 +36,7 @@ export default function Home() {
         <FaqSection />
         <MessageSection />
         <FinalCta />
+        <TestSection />
         <ContactSection />
       </main>
       <StickyCTA />
