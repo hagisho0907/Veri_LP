@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function TestSection() {
   return (
@@ -31,7 +32,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "Where's that noodle place from your story?"
+                &ldquo;Where&rsquo;s that noodle place from your story?&rdquo;
               </p>
               <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -46,7 +47,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "Can you just give me your list?"
+                &ldquo;Can you just give me your list?&rdquo;
               </p>
               <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -61,7 +62,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "I'm going to BKK soon, what shouldn't I miss?"
+                &ldquo;I&rsquo;m going to BKK soon, what shouldn&rsquo;t I miss?&rdquo;
               </p>
               <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -76,7 +77,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "I'm going to Tokyo, should..."
+                &ldquo;I&rsquo;m going to Tokyo, should...&rdquo;
               </p>
               <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -91,7 +92,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "Do you know any late-night hangout place?"
+                &ldquo;Do you know any late-night hangout place?&rdquo;
               </p>
               <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -106,7 +107,7 @@ export default function TestSection() {
           >
             <div className="bg-white rounded-lg p-4 shadow-lg max-w-xs relative">
               <p className="text-gray-800 text-sm font-medium italic">
-                "Bro, can you make a guide already?!"
+                &ldquo;Bro, can you make a guide already?!&rdquo;
               </p>
               <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white transform rotate-45"></div>
             </div>
@@ -124,9 +125,11 @@ export default function TestSection() {
             <div className="relative transform -rotate-12">
               <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="/images/test/S__925981_0.jpg"
                     alt="Instagram DM conversations"
+                    width={192}
+                    height={384}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -137,9 +140,11 @@ export default function TestSection() {
             <div className="relative transform rotate-12">
               <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="/images/test/S__925983_0.jpg"
                     alt="More Instagram DM conversations"
+                    width={192}
+                    height={384}
                     className="w-full h-full object-cover"
                   />
                 </div>
