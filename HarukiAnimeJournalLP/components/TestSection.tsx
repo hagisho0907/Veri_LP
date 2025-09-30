@@ -113,7 +113,7 @@ export default function TestSection() {
             </div>
           </motion.div>
 
-          {/* Phone Mockups */}
+          {/* Images without phone frames */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -121,33 +121,29 @@ export default function TestSection() {
             viewport={{ once: true }}
             className="flex items-center justify-center space-x-4 z-10"
           >
-            {/* Left Phone */}
+            {/* Left Image */}
             <div className="relative transform -rotate-12">
-              <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
-                <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
-                  <Image
-                    src="/images/test/haruki1.png"
-                    alt="Instagram DM conversations"
-                    width={192}
-                    height={384}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="w-48 h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/test/haruki1.png"
+                  alt="Instagram DM conversations"
+                  width={192}
+                  height={384}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
-            {/* Right Phone */}
+            {/* Right Image */}
             <div className="relative transform rotate-12">
-              <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
-                <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
-                  <Image
-                    src="/images/test/haruki2.png"
-                    alt="More Instagram DM conversations"
-                    width={192}
-                    height={384}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="w-48 h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/test/haruki2.png"
+                  alt="More Instagram DM conversations"
+                  width={192}
+                  height={384}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </motion.div>
