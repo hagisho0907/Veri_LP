@@ -123,26 +123,26 @@ export default function TestSection() {
           >
             {/* Left Image */}
             <div className="relative transform -rotate-12">
-              <div className="w-48 h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="w-[180px] h-[371px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/test/haruki1.png"
                   alt="Instagram DM conversations"
-                  width={192}
-                  height={384}
-                  className="w-full h-full object-cover"
+                  width={1317}
+                  height={2716}
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
 
             {/* Right Image */}
             <div className="relative transform rotate-12">
-              <div className="w-48 h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="w-[180px] h-[371px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/test/haruki2.png"
                   alt="More Instagram DM conversations"
-                  width={192}
-                  height={384}
-                  className="w-full h-full object-cover"
+                  width={1317}
+                  height={2716}
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
