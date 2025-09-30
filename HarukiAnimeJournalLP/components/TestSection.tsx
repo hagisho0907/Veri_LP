@@ -126,7 +126,7 @@ export default function TestSection() {
               <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
                   <Image
-                    src="/images/test/S__925981_0.jpg"
+                    src="/images/test/haruki1.png"
                     alt="Instagram DM conversations"
                     width={192}
                     height={384}
@@ -141,7 +141,7 @@ export default function TestSection() {
               <div className="w-48 h-96 bg-black rounded-3xl p-2 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
                   <Image
-                    src="/images/test/S__925983_0.jpg"
+                    src="/images/test/haruki2.png"
                     alt="More Instagram DM conversations"
                     width={192}
                     height={384}
